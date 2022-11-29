@@ -1,0 +1,7 @@
+# ignore slurm files
+**/slurm-*
+
+
+
+# ignore MESA simulations
+**/new_Z*
