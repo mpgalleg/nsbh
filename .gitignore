@@ -7,7 +7,7 @@ kicks.ipynb
 grid_points.ipynb 
 
 # ignore py things
-.pyc
+**/*.pyc
 
 # ignore MESA simulations
 /grids/**
