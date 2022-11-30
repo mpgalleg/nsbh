@@ -30,7 +30,7 @@ for grid in list_of_grid_runs:
     print(initial_conditions)
 
     # extract the result of this run
-    mesa_result = utils.convert_output_to_table(star1_history_file=os.path.join(grid, star1_history_file),
+    mesa_result = utils_BNS.convert_output_to_table(star1_history_file=os.path.join(grid, star1_history_file),
                                                 binary_history_file=os.path.join(grid, binary_history_file),
                                                 output_file=os.path.join(grid, output_file))
     # Save the intiial conditions
@@ -41,6 +41,5 @@ for grid in list_of_grid_runs:
 data_preSN = project+'/results'+binary_grid+'/grid_results_preSN.csv'
 all_grid_results.to_csv(data_preSN, index=False)
 
-
-kicks.impart_kicks(data_preSN, model='Tauris')
-kicks.impart_kicks(data_preSN, model='Pod')
+kicks.impart_kick(all_grid_results, model='Tauris')
+kicks.impart_kick(all_grid_results, model='Pod')
