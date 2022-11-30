@@ -6,5 +6,8 @@ kicks.ipynb
 *checkpoint.ipynb
 grid_points.ipynb 
 
+# ignore py things
+.pyc
+
 # ignore MESA simulations
 /grids/**
