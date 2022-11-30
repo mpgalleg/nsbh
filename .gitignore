@@ -1,7 +1,10 @@
 # ignore slurm files
 **/slurm-*
 
-
+# ignore notebooks 
+kicks.ipynb
+*checkpoint.ipynb
+grid_points.ipynb 
 
 # ignore MESA simulations
 /grids/**
