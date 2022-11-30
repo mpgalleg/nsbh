@@ -16,7 +16,7 @@ binary_history_file = 'binary_history.data'
 output_file  = 'out.txt'
 
 # These are all the runs we did for this grid
-list_of_grid_runs = glob.glob(project+'/grids'+binary_grid+'/newZ*')
+list_of_grid_runs = glob.glob(project+'/grids'+binary_grid+'/new_Z*')
 
 # Because we name the directories smartly, we can extract the initial conditions from the directory names
 grid_columns = ['m1', 'm2', 'initial_period_in_days']
