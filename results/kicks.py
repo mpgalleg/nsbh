@@ -214,14 +214,15 @@ class System:
             
             
             
-def impart_kick(data, model, new_born_NS_mass=1.4):
+def impart_kick(path_to_data, model, new_born_NS_mass=1.4):
+    data = pd.read_csv(path_to_data, comment='#',delimiter=',')
 
     # you can only impart kicks to binaries that are detached after MESA simulation
     detached_outcomes = ['CE_ejection', 'CE_ejection_m', 'wide_binary']
     data_detached = data[ data['result'].isin(detached_outcomes)].copy() 
 
     # binaries that are not detached
-    failed_outcomes = ['CE_merger','error']
+    failed_outcomes = ['CE_merger','error','ZAMS_RLOF']
     data_failed = data[ data['result'].isin(failed_outcomes)].copy()
 
     n_distrupted_list = []; n_wide_binary_list = []; n_merge_list = []; sn_type_list = []
@@ -294,11 +295,15 @@ def impart_kick(data, model, new_born_NS_mass=1.4):
     data_failed['n_kicks'] = -1
 
     data_tmerger_dist = pd.concat([data_detached, data_failed])
+    print(len(data_tmerger_dist.index),len(data.index))
 
     if len(data_tmerger_dist.index)==len(data.index):
-        filename_list = path_to_data.split('/')[0:-1] + [path_to_data.split('/')[-1][0:-4]+'_tmerger_dist_'+model+'_ECSN.csv']
-        filename = '/'.join(filename_list)
-        data_tmerger_dist.to_csv(filename)
-        print(filename)
+        new_file_path_list = path_to_data.split('/')[0:-1]+[path_to_data.split('/')[-1][0:-9]+'tmerger_dist_'+model+'_ECSN.csv']
+        new_file_path = '/'.join(new_file_path_list)
+        data_tmerger_dist.to_csv(new_file_path)
+        print(new_file_path)
+
+    else: 
+        print('you dont have all simulations or you have double counted')
         
     return data_tmerger_dist            

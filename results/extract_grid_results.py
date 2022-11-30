@@ -48,7 +48,7 @@ if do_grid:
     all_grid_results.to_csv(data_preSN, index=False)
 
 # Dataframe with all the binaries 
-data = pd.read_csv(data_preSN, comment='#',delimiter=',')
+# data = pd.read_csv(data_preSN, comment='#',delimiter=',')
 
-kicks.impart_kick(data, model='Tauris')
-kicks.impart_kick(data, model='Pod')
+kicks.impart_kick(data_preSN, model='Tauris')
+kicks.impart_kick(data_preSN, model='Pod')
