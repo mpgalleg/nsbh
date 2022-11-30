@@ -47,10 +47,8 @@ if do_grid:
     
     all_grid_results.to_csv(data_preSN, index=False)
 
-# you can only impart kicks to binaries that are detached after MESA simulation
+# Dataframe with all the binaries 
 data = pd.read_csv(data_preSN, comment='#',delimiter=',')
-detached_outcomes = ['CE_ejection', 'CE_ejection_m', 'wide_binary']
-data_detached = data[ data['result'].isin(detached_outcomes)].copy() 
 
-kicks.impart_kick(data_detached, model='Tauris')
-kicks.impart_kick(data_detached, model='Pod')
+kicks.impart_kick(data, model='Tauris')
+kicks.impart_kick(data, model='Pod')

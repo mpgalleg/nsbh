@@ -19,6 +19,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with progenitor.  If not, see <http://www.gnu.org/licenses/>.
+from scipy.stats import maxwell
 
 __author__ = ['Michael Zevin <michael.zevin@ligo.org>', 'Chase Kimball <charles.kimball@ligo.org']
 __credits__ = 'Scott Coughlin <scott.coughlin@ligo.org>'
@@ -213,7 +214,15 @@ class System:
             
             
             
-def impart_kick(data_detached, model, new_born_NS_mass=1.4):
+def impart_kick(data, model, new_born_NS_mass=1.4):
+
+    # you can only impart kicks to binaries that are detached after MESA simulation
+    detached_outcomes = ['CE_ejection', 'CE_ejection_m', 'wide_binary']
+    data_detached = data[ data['result'].isin(detached_outcomes)].copy() 
+
+    # binaries that are not detached
+    failed_outcomes = ['CE_merger','error']
+    data_failed = data[ data['result'].isin(failed_outcomes)].copy()
 
     n_distrupted_list = []; n_wide_binary_list = []; n_merge_list = []; sn_type_list = []
     post_SN_a_mean_list = []; post_SN_a_median_list = []
@@ -278,9 +287,6 @@ def impart_kick(data_detached, model, new_born_NS_mass=1.4):
     data_detached['t_merger'] = t_merger_list
     data_detached['a_post'] = a_list
     data_detached['e_post'] = e_list
-
-    failed_BNS_outcomes = ['CE_merger','error']
-    data_failed = data[ data['result'].isin(failed_BNS_outcomes)].copy()
 
     data_failed['n_distrupted'] = -1 
     data_failed['n_wide_binary'] = -1
